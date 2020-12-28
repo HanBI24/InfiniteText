@@ -12,8 +12,5 @@ public class LicenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_license);
-
-        TextView mLicense = (TextView)findViewById(R.id.license_text);
-        mLicense.setMovementMethod(new ScrollingMovementMethod());
     }
 }

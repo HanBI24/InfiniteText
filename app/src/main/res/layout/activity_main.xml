@@ -61,16 +61,41 @@
             android:text="복사하기" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/text_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:scrollbars="vertical"
-        android:textStyle="bold"
-        android:textIsSelectable="true"/>
+        android:orientation="horizontal"
+        android:gravity="center">
 
+        <Button
+            android:id="@+id/room_btn"
+            android:text="Room DB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/room_remove_btn"
+            android:text="Room DB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <com.amar.library.ui.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:scrollbars="vertical"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </com.amar.library.ui.StickyScrollView>
 </LinearLayout>
