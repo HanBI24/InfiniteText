@@ -93,10 +93,11 @@ public class LogActivityAdapter extends RecyclerView.Adapter<LogActivityAdapter.
     @Override
     public void onBindViewHolder(@NonNull LogViewHolder holder, int position) {
         holder.itemCount.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-        holder.itemContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+        holder.itemContents.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
         holder.itemCount.setText(String.valueOf(mList.get(position).getCount()));
-        holder.itemContents.setText(mList.get(position).getContents());
+        // Prevent string word wrap.
+        holder.itemContents.setText(mList.get(position).getContents().replace(" ", "\u00A0"));
 
         holder.itemCount.setGravity(Gravity.LEFT);
         holder.itemContents.setGravity(Gravity.LEFT);
@@ -119,6 +120,7 @@ public class LogActivityAdapter extends RecyclerView.Adapter<LogActivityAdapter.
                 ItemEntity dict = mList.remove(holder.getAdapterPosition());
                 db.itemDao().delete(dict);
             }).start();
+            Toast.makeText(context, holder.itemContents.getText().toString()+" "+holder.itemCount.getText().toString()+ "번 "+" 삭제 완료", Toast.LENGTH_SHORT).show();
         });
 
         holder.copyBtn.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +132,7 @@ public class LogActivityAdapter extends RecyclerView.Adapter<LogActivityAdapter.
                 ClipboardManager myClipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData myClip = ClipData.newPlainText("copy_result", result);
                 myClipboard.setPrimaryClip(myClip);
-                Toast.makeText(v.getContext(), contents+""+count+"번 복사 완료", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), contents+" "+count+"번 복사 완료", Toast.LENGTH_SHORT).show();
             }
         });
     }

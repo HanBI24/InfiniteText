@@ -68,7 +68,7 @@ public class LogActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.delete_all) {
             adapter.deleteAll();
-            Toast.makeText(getApplicationContext(), "모두 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "전체 삭제 완료", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

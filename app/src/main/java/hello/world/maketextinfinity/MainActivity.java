@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     String getContents;
     int getCount;
     Button createBtn, copyBtn;
-    Button roomDbBtn, roomRemoveBtn;
     private GlobalData data;
 
     @Override
@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
                 if(etText.getText().toString().trim().length()<=0 || etNum.getText().toString().trim().length()<=0){
                     Toast.makeText(MainActivity.this, "한 글자 이상 입력하세요.", Toast.LENGTH_LONG).show();
                 } else {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etText.getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(etNum.getWindowToken(), 0);
                     num = Integer.parseInt(etNum.getText().toString());
                     text = etText.getText().toString();
                     getContents = text;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     textView.setBackgroundColor(Color.argb(100, 131, 126, 126));
                     textView.setTextColor(Color.argb(100, 0, 0, 0));
                     textView.setText(text);
+                    Toast.makeText(getApplicationContext(), "생성 완료", Toast.LENGTH_SHORT).show();
                     data.setContents(getContents);
                     data.setCount(getCount);
                 }
