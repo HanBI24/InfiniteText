@@ -1,52 +1,75 @@
 package hello.world.maketextinfinity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.widget.ListView;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LogActivity extends AppCompatActivity {
-    private ArrayList<String> textArrayList;
-    private ArrayList<Integer> numArrayList;
-    ListView listView;
-    ListAdapter listAdapter;
-    String text;
-    int num;
+    private String getContents;
+    private int getCount;
+    private LogActivityAdapter adapter;
+    private ItemDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
 
-        textArrayList = new ArrayList<>();
-        numArrayList = new ArrayList<>();
+        GlobalData data = (GlobalData) getApplication();
+        getCount = data.getCount();
+        getContents = data.getContents();
 
-        Intent intent = getIntent();
-        text = intent.getStringExtra("text");
-        num = intent.getIntExtra("num", 0);
-        textArrayList.add(text);
-        numArrayList.add(num);
+        RecyclerView mRecyclerView = findViewById(R.id.log_recyclerview);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        listAdapter = new ListAdapter();
-        listView = (ListView)findViewById(R.id.list_item);
-        listView.setAdapter(listAdapter);
+        // 구분선
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                mLinearLayoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        for(int i=0; i<textArrayList.size(); i++) {
-            listAdapter.addItem(textArrayList.get(i), numArrayList.get(i));
-            listAdapter.notifyDataSetChanged();
+        db = ItemDatabase.getDatabase(this);
+        adapter = new LogActivityAdapter(db, this);
+        mRecyclerView.setAdapter(adapter);
+
+        db.itemDao().getAll().observe(this, itemEntities -> adapter.setItem(itemEntities));
+
+        new Thread(()-> {
+            ItemEntity dict = new ItemEntity(getCount, getContents);
+            db.itemDao().insert(dict);
+        }).start();
+
+        adapter.deleteNull();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.delete_all) {
+            adapter.deleteAll();
+            Toast.makeText(getApplicationContext(), "모두 삭제되었습니다.", Toast.LENGTH_SHORT).show();
         }
+        return super.onOptionsItemSelected(item);
     }
 }
