@@ -17,7 +17,7 @@
             android:id="@+id/et_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="글자 입력 (30자 이하 추천)"
+            android:hint="@string/input_contents"
             app:met_floatingLabel="highlight"
             app:met_baseColor="#0056d3"
             app:met_primaryColor="#0CC5B0"
@@ -28,7 +28,7 @@
             android:id="@+id/et_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="생성할 글자 수 (10,000 이하 추천)"
+            android:hint="@string/input_count"
             app:met_floatingLabel="highlight"
             app:met_baseColor="#0056d3"
             app:met_primaryColor="#0CC5B0"
@@ -48,14 +48,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="생성" />
+            android:text="@string/create" />
 
         <Button
             android:id="@+id/copy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="복사하기" />
+            android:text="@string/copy" />
     </LinearLayout>
 
     <com.amar.library.ui.StickyScrollView

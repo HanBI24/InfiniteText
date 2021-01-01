@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">글자 무한 생성기</string>
+    <string name="input_contents">글자 입력 (30자 이하 추천)</string>
+    <string name="input_count">생성할 글자 수 (10,000 이하 추천)</string>
+    <string name="create">생성</string>
+    <string name="copy">복사하기</string>
+    <string name="make_icon">Icon 제작자</string>
+    <string name="test_text">TestTextView</string>
+    <string name="one_more_text">한 글자 이상 입력하세요</string>
+    <string name="finish_create">생성 완료</string>
+    <string name="finish_copy">번 복사 완료</string>
+    <string name="finish_delete_all">전체 삭제 완료</string>
+    <string name="count_time">번</string>
+    <string name="finish_delete">삭제 완료</string>
+</resources>

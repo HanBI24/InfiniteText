@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     int getCount;
     Button createBtn, copyBtn;
     private GlobalData data;
+    private String oneMoreText, finishCopy, countTime, finishCopy1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +40,14 @@ public class MainActivity extends AppCompatActivity {
         createBtn = (Button) findViewById(R.id.create);
         textView = (TextView) findViewById(R.id.text_view);
         copyBtn = (Button)findViewById(R.id.copy);
-
         data = (GlobalData) getApplication();
+        setText(oneMoreText, finishCopy, countTime, finishCopy1);
 
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(etText.getText().toString().trim().length()<=0 || etNum.getText().toString().trim().length()<=0){
-                    Toast.makeText(MainActivity.this, "한 글자 이상 입력하세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, oneMoreText, Toast.LENGTH_LONG).show();
                 } else {
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(etText.getWindowToken(), 0);
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     textView.setBackgroundColor(Color.argb(100, 131, 126, 126));
                     textView.setTextColor(Color.argb(100, 0, 0, 0));
                     textView.setText(text);
-                    Toast.makeText(getApplicationContext(), "생성 완료", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), finishCopy, Toast.LENGTH_SHORT).show();
                     data.setContents(getContents);
                     data.setCount(getCount);
                 }
@@ -70,15 +71,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(etText.getText().toString().trim().length()<=0 || etNum.getText().toString().trim().length()<=0 ){
-                    Toast.makeText(MainActivity.this, "한 글자 이상 입력하세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, oneMoreText, Toast.LENGTH_LONG).show();
                 } else {
                     ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                     ClipData clipData = ClipData.newPlainText("ID", text);
                     clipboardManager.setPrimaryClip(clipData);
-                    Toast.makeText(getApplicationContext(), getContents+" "+getCount+"번 복사 완료", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getContents+" "+getCount+" "+countTime+" "+finishCopy1, Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    public void setText(String t1, String t2, String t3, String t4){
+        t1 = getResources().getString(R.string.one_more_text);
+        t2 = getResources().getString(R.string.finish_create);
+        t3 = getResources().getString(R.string.count_time);
+        t4 = getResources().getString(R.string.finish_copy);
+
+        this.oneMoreText = t1;
+        this.finishCopy = t2;
+        this.countTime = t3;
+        this.finishCopy1 = t4;
     }
 
     public String repeatText(String text, int n){

@@ -25,6 +25,7 @@ public class LogActivity extends AppCompatActivity {
     private int getCount;
     private LogActivityAdapter adapter;
     private ItemDatabase db;
+    private String deleteAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class LogActivity extends AppCompatActivity {
         GlobalData data = (GlobalData) getApplication();
         getCount = data.getCount();
         getContents = data.getContents();
+        deleteAll = getResources().getString(R.string.finish_delete_all);
 
         RecyclerView mRecyclerView = findViewById(R.id.log_recyclerview);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
@@ -68,7 +70,7 @@ public class LogActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.delete_all) {
             adapter.deleteAll();
-            Toast.makeText(getApplicationContext(), "전체 삭제 완료", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), deleteAll, Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

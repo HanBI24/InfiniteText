@@ -25,6 +25,7 @@ public class LogActivityAdapter extends RecyclerView.Adapter<LogActivityAdapter.
     private int idx;
     private final Context context;
     ItemClickListener itemClickListener;
+    private String countTime, finishCopy, finishDelete;
 
     public static class LogViewHolder extends RecyclerView.ViewHolder{
         protected TextView itemCount;
@@ -103,6 +104,8 @@ public class LogActivityAdapter extends RecyclerView.Adapter<LogActivityAdapter.
         holder.itemContents.setGravity(Gravity.LEFT);
         holder.itemDelete.setGravity(Gravity.LEFT);
 
+        setText(countTime, finishCopy, finishDelete);
+
         // Item click event.
         // Send list position and entity.
         final ItemEntity dictionary = mList.get(position);
@@ -120,7 +123,7 @@ public class LogActivityAdapter extends RecyclerView.Adapter<LogActivityAdapter.
                 ItemEntity dict = mList.remove(holder.getAdapterPosition());
                 db.itemDao().delete(dict);
             }).start();
-            Toast.makeText(context, holder.itemContents.getText().toString()+" "+holder.itemCount.getText().toString()+ "번 "+" 삭제 완료", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, holder.itemContents.getText().toString()+" "+holder.itemCount.getText().toString()+" "+countTime+" "+finishDelete, Toast.LENGTH_SHORT).show();
         });
 
         holder.copyBtn.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +135,7 @@ public class LogActivityAdapter extends RecyclerView.Adapter<LogActivityAdapter.
                 ClipboardManager myClipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData myClip = ClipData.newPlainText("copy_result", result);
                 myClipboard.setPrimaryClip(myClip);
-                Toast.makeText(v.getContext(), contents+" "+count+"번 복사 완료", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), contents+" "+count+" "+countTime+" "+finishCopy, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -147,6 +150,16 @@ public class LogActivityAdapter extends RecyclerView.Adapter<LogActivityAdapter.
 
     public void setOnItemClickListener(ItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;
+    }
+
+    public void setText(String t1, String t2, String t3){
+        t1 = context.getResources().getString(R.string.count_time);
+        t2 = context.getResources().getString(R.string.finish_copy);
+        t3 = context.getResources().getString(R.string.finish_delete);
+
+        this.countTime = t1;
+        this.finishCopy = t2;
+        this.finishDelete = t3;
     }
 
     @Override

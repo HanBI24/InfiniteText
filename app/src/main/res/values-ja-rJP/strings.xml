@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">無限テキストジェネレータ</string>
+    <string name="input_contents">テキストを入力してください（30文字またはテキストを推奨）</string>
+    <string name="input_count">作成する文字数（10,000未満を推奨）</string>
+    <string name="create">作成する</string>
+    <string name="copy">コピー</string>
+    <string name="make_icon">アイコンクリエーター</string>
+    <string name="test_text">TestTextView</string>
+    <string name="one_more_text">少なくとも1つのテキストを入力してください</string>
+    <string name="finish_create">作成が完了しました</string>
+    <string name="finish_copy">コピー終了</string>
+    <string name="finish_delete_all">すべてのログを完全に削除</string>
+    <string name="count_time">计数</string>
+    <string name="finish_delete">删除完成</string>
+</resources>
