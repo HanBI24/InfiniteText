@@ -75,6 +75,18 @@
                     android:gravity="center"
                     android:scrollbars="vertical"
                     android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/hello"
+                    android:text="Master branch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:scrollbars="vertical"
+                    android:textStyle="bold"/>
             </LinearLayout>
         </com.amar.library.ui.StickyScrollView>
 </LinearLayout>
