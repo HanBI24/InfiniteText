@@ -1,3 +1,4 @@
 # InfiniteText
 InfiniteText
-Hello test
+Hello test  
+merge test
